@@ -6,8 +6,8 @@ static int __init my_test_init(void)
 {
 		   unsigned long tcr;
 		   tcr = read_sysreg(tcr_el1);
-		   printk(KERN_EMERG "my first kernel module init\n");
-								return 0;
+		   printk(KERN_EMERG "tcr=%lx\n",tcr);
+		   return 0;
 }
 
 static void __exit my_test_exit(void)
