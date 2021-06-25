@@ -9,4 +9,4 @@ mmap.o : mmap.c
 clean:
 	rm -fr *.o mmap
 install:
-	cp mmap ../../rootfs/rootfs/var-user
+	sudo cp mmap ../../rootfs/rootfs/var-user
