@@ -8,7 +8,7 @@
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
 
-ROOT_DIR=/home/tom/work/kernel/
+ROOT_DIR=/work/kernel
 ROOT=${ROOT_DIR}/test-module-arm
 
 ROOTFS_NAME=ext4

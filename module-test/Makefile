@@ -1,15 +1,16 @@
 obj-m :=my_test.o
 
-ROOT        := /home/tom/work/BiscuitOS/output/linux-5.0-aarch
+#ROOT        := /home/tom/work/BiscuitOS/output/linux-5.0-aarch
+ROOT        := /work/kernel/test-module-arm
 ARCH        := arm64
 CROSS_NAME  := aarch64-linux-gnu
-CROSS_PATH  := $(ROOT)/$(CROSS_NAME)/$(CROSS_NAME)
+CROSS_PATH  := $(ROOT)/$(CROSS_NAME)
 CROSS_TOOL  := $(CROSS_PATH)/bin/$(CROSS_NAME)-
-KERNELDIR   := $(ROOT)/linux/out
 
-INCLUDEDIR=$(ROOT)/linux/linux/include
-ARCHINCLUDEDIR=$(ROOT)/linux/linux/arch/$(ARCH)/include
-INSTALLDIR=$(ROOT)/rootfs/rootfs/
+ROOT_KENEL  := /work/kernel/
+KERNELDIR   := $(ROOT_KENEL)/out
+INCLUDEDIR=$(ROOT_KENEL)/linux-4.14.1/include
+ARCHINCLUDEDIR=$(ROOT_KENEL)/linux-4.14.1/arch/$(ARCH)/include
 
 #head file flag
 ccflags-y += -I$(INCLUDEDIR) -I$(ARCHINCLUDEDIR)

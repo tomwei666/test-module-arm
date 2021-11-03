@@ -27,10 +27,11 @@ NET_CFG=${ROOT}/package/networking
 CMDLINE="earlycon root=/dev/vda rw rootfstype=${FS_TYPE} console=ttyAMA0 init=/linuxrc loglevel=8"
 #KERNEL_IMG=/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-4.14.1-aarch/linux/out/arch/arm64/boot/Image
 
-ROOT=/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-5.0-aarch
-QEMUT=/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-5.0-aarch/qemu-system/qemu-system/aarch64-softmmu/qemu-system-aarch64
-KERNEL_IMG=/home/tom/work/kernel/out/arch/arm64/boot/Image
-ROOTFS_FILE=/home/tom/work/kernel/test-module-arm
+ROOT=/work/BiscuitOS/output/linux-4.14.1-aarch
+QEMUT=${ROOT}/qemu-system/qemu-system/aarch64-softmmu/qemu-system-aarch64
+ROOT_1=/work/kernel
+KERNEL_IMG=${ROOT_1}/out/arch/arm64/boot/Image
+ROOTFS_FILE=${ROOT_1}/test-module-arm
 
 do_running()
 {
