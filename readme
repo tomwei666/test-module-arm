@@ -1,3 +1,6 @@
-介绍下把rootfs生成biscuitos.img
-1. cp rootfs /home/tom/work/BiscuitOS/output/linux-4.4.174-aarch -fr
-2. ./RunBiscuitOS.sh pack
+1. 生成Biscuitos.img
+   修改文件: mkrootfs.sh
+   修改内容:ROOT_DIR=/home/tom/work/kernel/
+2. 运行系统
+   修改文件: RunBiscuitOS.sh
+   修改内容: ROOT= QEMUT= KERNEL_IMG= ROOTFS_FILE=

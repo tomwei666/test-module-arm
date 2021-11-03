@@ -8,7 +8,8 @@
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
 
-ROOT=/work/BiscuitOS/output/linux-4.14.1-aarch/test-module-arm
+ROOT_DIR=/home/tom/work/kernel/
+ROOT=${ROOT_DIR}/test-module-arm
 
 ROOTFS_NAME=ext4
 ROOTFS_NAME_1=rootfs
