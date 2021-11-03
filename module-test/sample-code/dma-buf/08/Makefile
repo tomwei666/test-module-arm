@@ -21,6 +21,8 @@ PWD := $(shell pwd)
 
 modules:
 		    $(MAKE) -C $(KERNELDIR) M=$(PWD) modules ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_TOOL)
+install:
+	sudo cp *.ko /work/kernel/test-module-arm/rootfs/ext4/var-user
 
 clean:
 		    rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions modules.order Module.symvers

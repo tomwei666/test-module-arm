@@ -24,7 +24,8 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-#include <linux/dma-buf.h>
+//#include <linux/dma-buf.h>
+#include "dma-buf.h"
 
 int main(int argc, char *argv[])
 {
