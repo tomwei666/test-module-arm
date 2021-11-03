@@ -1,0 +1,45 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	dmabuf-test/Makefile	/^CC := $(CROSS_COMPILE)gcc$/;"	m
+CFLAGS	dmabuf-test/Makefile	/^CFLAGS := -I..\/..\/usr\/include$/;"	m
+CROSS_COMPILE	dmabuf-test/Makefile	/^CROSS_COMPILE := arm-linux-gnueabi-$/;"	m
+PROGS	dmabuf-test/Makefile	/^PROGS := dmabuf_sync share_fd$/;"	m
+dmabuf_exported	exporter-page.c	/^static struct dma_buf *dmabuf_exported;$/;"	v	typeref:struct:dma_buf	file:
+exp_dmabuf_ops	exporter-page.c	/^static const struct dma_buf_ops exp_dmabuf_ops = {$/;"	v	typeref:struct:dma_buf_ops	file:
+exporter_alloc_page	exporter-page.c	/^static struct dma_buf *exporter_alloc_page(void)$/;"	f	file:	signature:(void)
+exporter_attach	exporter-page.c	/^static int exporter_attach(struct dma_buf *dmabuf, struct device *dev,$/;"	f	file:	signature:(struct dma_buf *dmabuf, struct device *dev, struct dma_buf_attachment *attachment)
+exporter_begin_cpu_access	exporter-page.c	/^static int exporter_begin_cpu_access(struct dma_buf *dmabuf,$/;"	f	file:	signature:(struct dma_buf *dmabuf, enum dma_data_direction dir)
+exporter_detach	exporter-page.c	/^static void exporter_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attachment)$/;"	f	file:	signature:(struct dma_buf *dmabuf, struct dma_buf_attachment *attachment)
+exporter_end_cpu_access	exporter-page.c	/^static int exporter_end_cpu_access(struct dma_buf *dmabuf,$/;"	f	file:	signature:(struct dma_buf *dmabuf, enum dma_data_direction dir)
+exporter_exit	exporter-page.c	/^module_exit(exporter_exit);$/;"	v
+exporter_exit	exporter-page.c	/^static void __exit exporter_exit(void)$/;"	f	file:	signature:(void)
+exporter_fops	exporter-page.c	/^static struct file_operations exporter_fops = {$/;"	v	typeref:struct:file_operations	file:
+exporter_init	exporter-page.c	/^module_init(exporter_init);$/;"	v
+exporter_init	exporter-page.c	/^static int __init exporter_init(void)$/;"	f	file:	signature:(void)
+exporter_ioctl	exporter-page.c	/^static long exporter_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)$/;"	f	file:	signature:(struct file *filp, unsigned int cmd, unsigned long arg)
+exporter_kmap	exporter-page.c	/^static void *exporter_kmap(struct dma_buf *dma_buf, unsigned long page_num)$/;"	f	file:	signature:(struct dma_buf *dma_buf, unsigned long page_num)
+exporter_kmap_atomic	exporter-page.c	/^static void *exporter_kmap_atomic(struct dma_buf *dma_buf, unsigned long page_num)$/;"	f	file:	signature:(struct dma_buf *dma_buf, unsigned long page_num)
+exporter_kunmap	exporter-page.c	/^static void exporter_kunmap(struct dma_buf *dma_buf, unsigned long page_num, void *addr)$/;"	f	file:	signature:(struct dma_buf *dma_buf, unsigned long page_num, void *addr)
+exporter_kunmap_atomic	exporter-page.c	/^static void exporter_kunmap_atomic(struct dma_buf *dma_buf, unsigned long page_num, void *addr)$/;"	f	file:	signature:(struct dma_buf *dma_buf, unsigned long page_num, void *addr)
+exporter_map_dma_buf	exporter-page.c	/^static struct sg_table *exporter_map_dma_buf(struct dma_buf_attachment *attachment,$/;"	f	file:	signature:(struct dma_buf_attachment *attachment, enum dma_data_direction dir)
+exporter_mmap	exporter-page.c	/^static int exporter_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)$/;"	f	file:	signature:(struct dma_buf *dma_buf, struct vm_area_struct *vma)
+exporter_release	exporter-page.c	/^static void exporter_release(struct dma_buf *dma_buf)$/;"	f	file:	signature:(struct dma_buf *dma_buf)
+exporter_unmap_dma_buf	exporter-page.c	/^static void exporter_unmap_dma_buf(struct dma_buf_attachment *attachment,$/;"	f	file:	signature:(struct dma_buf_attachment *attachment, struct sg_table *table, enum dma_data_direction dir)
+exporter_vmap	exporter-page.c	/^static void *exporter_vmap(struct dma_buf *dma_buf)$/;"	f	file:	signature:(struct dma_buf *dma_buf)
+exporter_vunmap	exporter-page.c	/^static void exporter_vunmap(struct dma_buf *dma_buf, void *vaddr)$/;"	f	file:	signature:(struct dma_buf *dma_buf, void *vaddr)
+importer_exit	importer-page.c	/^module_exit(importer_exit);$/;"	v
+importer_exit	importer-page.c	/^static void __exit importer_exit(void)$/;"	f	file:	signature:(void)
+importer_fops	importer-page.c	/^static struct file_operations importer_fops = {$/;"	v	typeref:struct:file_operations	file:
+importer_init	importer-page.c	/^module_init(importer_init);$/;"	v
+importer_init	importer-page.c	/^static int __init importer_init(void)$/;"	f	file:	signature:(void)
+importer_ioctl	importer-page.c	/^static long importer_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)$/;"	f	file:	signature:(struct file *filp, unsigned int cmd, unsigned long arg)
+importer_test1	importer-page.c	/^static int importer_test1(struct dma_buf *dmabuf)$/;"	f	file:	signature:(struct dma_buf *dmabuf)
+importer_test2	importer-page.c	/^static int importer_test2(struct dma_buf *dmabuf)$/;"	f	file:	signature:(struct dma_buf *dmabuf)
+main	dmabuf-test/dmabuf_sync.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+main	dmabuf-test/share_fd.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+mdev	exporter-page.c	/^static struct miscdevice mdev = {$/;"	v	typeref:struct:miscdevice	file:
+mdev	importer-page.c	/^static struct miscdevice mdev = {$/;"	v	typeref:struct:miscdevice	file:
