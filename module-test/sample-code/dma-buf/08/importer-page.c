@@ -14,6 +14,14 @@
 #include <linux/miscdevice.h>
 #include <linux/slab.h>
 #include <linux/uaccess.h>
+static dma_addr_t importer_map_page(struct device *dev, struct page *page,unsigned long offset, size_t size,enum dma_data_direction dir,unsigned long attrs)
+{
+    printk(KERN_ERR "tom F=%s L=%d\n",__func__,__LINE__);
+    return 0x1234;
+}
+static struct dma_map_ops importer_dma_fops = {
+    .map_page = importer_map_page,
+};
 
 static int importer_test1(struct dma_buf *dmabuf)
 {
@@ -44,6 +52,9 @@ static int importer_test2(struct dma_buf *dmabuf)
 	if (!dev)
 		return -ENOMEM;
 	dev_set_name(dev, "importer");
+
+	dev->dma_ops = &importer_dma_fops;
+	/*importer_dma_fops*/
 
 	attachment = dma_buf_attach(dmabuf, dev);
 	if (IS_ERR(attachment)) {
@@ -87,6 +98,7 @@ static long importer_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
 
 	return 0;
 }
+
  
 static struct file_operations importer_fops = {
 	.owner	= THIS_MODULE,
@@ -98,6 +110,7 @@ static struct miscdevice mdev = {
 	.name = "importer",
 	.fops = &importer_fops,
 };
+
  
 static int __init importer_init(void)
 {

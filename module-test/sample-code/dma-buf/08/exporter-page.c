@@ -47,7 +47,7 @@ static struct sg_table *exporter_map_dma_buf(struct dma_buf_attachment *attachme
 	}
 
 	sg_set_page(table->sgl, page, PAGE_SIZE, 0);
-	sg_dma_address(table->sgl) = dma_map_page(NULL, page, 0, PAGE_SIZE, dir);
+	sg_dma_address(table->sgl) = dma_map_page(attachment->dev, page, 0, PAGE_SIZE, dir);
 
 	return table;
 }
