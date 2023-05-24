@@ -8,14 +8,14 @@
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
 
-ROOT_DIR=/work/kernel
+ROOT_DIR=/home/tom/work1/github-tom
 ROOT=${ROOT_DIR}/test-module-arm
 
 ROOTFS_NAME=ext4
 ROOTFS_NAME_1=rootfs
 FS_TYPE=ext4
 FS_TYPE_TOOLS=mkfs.ext4
-ROOTFS_SIZE=150
+ROOTFS_SIZE=250
 FREEZE_SIZE=512
 RAM_SIZE=512
 
