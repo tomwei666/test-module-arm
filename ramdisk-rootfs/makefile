@@ -55,7 +55,7 @@ create_rootfs()
 
 	# 2. copy busybox file
 	sudo mkdir rootfs
-	sudo cp ${BUSYBOX_INSTALL} rootfs/ -raf
+	sudo cp ${BUSYBOX_INSTALL}/* rootfs/ -raf
 
 	# 3. create file
 	sudo mkdir -p rootfs/proc/
@@ -88,8 +88,7 @@ create_rootfs()
 	sudo umount tmpfs
 	sudo gzip --best -c ramdisk > ramdisk.gz
 	sudo mkimage -n "ramdisk" -A arm -O linux -T ramdisk -C gzip -d ramdisk.gz ramdisk.img
-	sudo cp ramdisk.img ${OUT}
-	sudo cp ramdisk.gz ${OUT}
+	sudo cp ramdisk* ${OUT}/
 }
 #create_rootfs
 #clean_rootfs
