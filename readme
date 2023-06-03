@@ -4,3 +4,20 @@
 2. 运行系统
    修改文件: RunBiscuitOS.sh
    修改内容: ROOT= QEMUT= KERNEL_IMG= ROOTFS_FILE=
+3. 增加文件系统生成:
+ramdisk-rootfs和biscuitos-rootfs,两种方式生成文件系统.
+4. 文件共享
+	nfs挂载：
+	mount -t nfs -o nolock 172.16.14.203:/nfsroot /mnt
+	9p挂载：
+	mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt2
+	在/etc/fstab中可以写成如下方式：
+	hostshare  /mnt   9p   trans=virtio,version=9p2000.L   0   2
+	链接: https://www.cnblogs.com/pengdonglin137/p/6431234.html
+
+文件共享:通过/etc/fstab文件有点问题.
+5. qemu进入hpm模式
+qemu-system-aarch64 -machine virt -cpu cortex-a53 -minitor stdio
+
+
+
