@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo gdb-multiarch --ex="set arch armv5te" --ex="set sysroot /usr/arm-linux-gnueabihf/" --ex="target remote localhost:1234" test
