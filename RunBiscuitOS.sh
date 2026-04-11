@@ -8,29 +8,17 @@
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
 
-#/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-5.0-aarch
-ARCH=arm64
-BUSYBOX=/home/tom/work/BiscuitOS/output/linux-5.0-aarch/busybox/busybox
-OUTPUT=/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-5.0-aarch
-ROOTFS_NAME=ext4
-CROSS_COMPILE=aarch64-linux-gnu
-FS_TYPE=ext4
-FS_TYPE_TOOLS=mkfs.ext4
-ROOTFS_SIZE=150
-FREEZE_SIZE=512
-DL=/home/tom/work/BiscuitOS/dl
-DEBIAN_PACKAGE=buster-base-arm64.tar.gz.N.bsp
-#RAM_SIZE=2048
 RAM_SIZE=1024
-LINUX_DIR=${ROOT}/linux/out/arch
-NET_CFG=${ROOT}/package/networking
-CMDLINE="earlycon root=/dev/vda rw rootfstype=${FS_TYPE} console=ttyAMA0 init=/linuxrc loglevel=8"
-#KERNEL_IMG=/home/tom/work/BiscuitOS-ALL/BiscuitOS/output/linux-4.14.1-aarch/linux/out/arch/arm64/boot/Image
+CMDLINE="earlycon root=/dev/vda rw rootfstype=ext4 console=ttyAMA0 init=/linuxrc loglevel=8"
 
-ROOT=/work/BiscuitOS/output/linux-4.14.1-aarch
-QEMUT=${ROOT}/qemu-system/qemu-system/aarch64-softmmu/qemu-system-aarch64
-ROOT_1=/work/kernel
-KERNEL_IMG=${ROOT_1}/out/arch/arm64/boot/Image
+#QEMUT=/work/github/qemu/build/qemu-system-aarch64
+ROOT_1=/work/explore
+#KERNEL_IMG=/work/explore/out_k414/arch/arm64/boot/Image
+KERNEL_IMG=/work/explore/out_a_k510/arch/arm64/boot/Image
+
+# 1-->1804 2-->2204
+UBUNTU_VER=2
+
 ROOTFS_FILE=${ROOT_1}/test-module-arm
 
 do_running()
@@ -45,15 +33,15 @@ do_running()
 	#	ARGS+="-netdev tap,id=bsnet0,ifname=bsTap0 "
 		ARGS+="-netdev tap,id=bsnet0,ifname=tap0 "
 	fi
-	
 
-	sudo ${QEMUT} ${ARGS} \
+	#sudo ${QEMUT} ${ARGS} \
+   sudo qemu-system-aarch64 ${ARGS} \
 	-M virt \
 	-m ${RAM_SIZE}M \
 	-cpu cortex-a53 \
 	-smp 2 \
 	-device virtio-blk-device,drive=hd1 \
-	-drive if=none,file=${ROOT}/Freeze.img,format=raw,id=hd1 \
+	-drive if=none,file=${ROOTFS_FILE}/Freeze.img,format=raw,id=hd1 \
 	-device virtio-blk-device,drive=hd0 \
 	-kernel ${KERNEL_IMG} \
 	-drive if=none,file=${ROOTFS_FILE}/BiscuitOS.img,format=raw,id=hd0 \
@@ -61,44 +49,24 @@ do_running()
 	-append "${CMDLINE}"
 }
 
-
 do_package()
 {
-	sudo cp ${BUSYBOX}/_install/*  ${OUTPUT}/rootfs/${ROOTFS_NAME} -raf
-	sudo chown root.root ${OUTPUT}/rootfs/${ROOTFS_NAME}/* -R
-	dd if=/dev/zero of=${OUTPUT}/rootfs/ramdisk bs=1M count=${ROOTFS_SIZE}
-	${FS_TYPE_TOOLS} -E lazy_itable_init=1,lazy_journal_init=1 -F ${OUTPUT}/rootfs/ramdisk
-	mkdir -p ${OUTPUT}/rootfs/tmpfs
-	sudo mount -t ${FS_TYPE} ${OUTPUT}/rootfs/ramdisk \
-	              ${OUTPUT}/rootfs/tmpfs/ -o loop
-	sudo cp -raf ${OUTPUT}/rootfs/${ROOTFS_NAME}/*  ${OUTPUT}/rootfs/tmpfs/
-	sudo umount ${OUTPUT}/rootfs/tmpfs
-	mv ${OUTPUT}/rootfs/ramdisk ${OUTPUT}/BiscuitOS.img
-	rm -rf ${OUTPUT}/rootfs/tmpfs
+	if [ "$UBUNTU_VER" -eq 1 ]; then
+		echo 1
+	elif [ "$UBUNTU_VER" -eq 2 ]; then
+		echo "make rootfs under ubuntu2204"
+		#dd if=/dev/zero of=Freeze.img bs=1M count=512
+		dd if=/dev/zero of=ramdisk bs=1M count=256
+		mkfs.ext4 -F ramdisk
+		rm -fr tmpfs
+		mkdir -p tmpfs
+		sudo mount -t ext4 ramdisk ./tmpfs/  -o loop
+		sudo cp -raf rootfs_2204/*  tmpfs/
+		sudo umount tmpfs
+		mv ramdisk BiscuitOS.img
+	fi
 }
 
-
-do_mount()
-{
-	mkdir -p ${ROOT}/FreezeDir
-	mountpoint -q ${ROOT}/FreezeDir
-	[ $? = 0 ] && echo "FreezeDir has mount!" && exit 0
-	## Mount Image
-	sudo mount -t ${FS_TYPE} ${ROOT}/Freeze.img ${ROOT}/FreezeDir -o loop >> /dev/null 2>&1
-	sudo chown ${USER}.${USER} -R ${ROOT}/FreezeDir
-	echo "=============================================="
-	echo "FreezeDisk: ${ROOT}/Freeze.img"
-	echo "MountDiret: ${ROOT}/FreezeDir"
-	echo "=============================================="
-}
-
-
-do_umount()
-{
-	mountpoint -q ${ROOT}/FreezeDir
-	[ $? = 1 ] && return 0
-	sudo umount ${ROOT}/FreezeDir > /dev/null 2>&1
-}
 
 # Lunching BiscuitOS
 case $1 in
