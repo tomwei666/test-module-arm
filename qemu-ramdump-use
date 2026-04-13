@@ -1,0 +1,44 @@
+1. 运行系统: ./RunBiscuitOS.sh
+
+2. 加载内核: load_kernel.sh
+[root@aarch64 ]# load_kernel.sh
++ kexec -p /Image --append=console=ttyAMA0 root=/dev/vda rw rootfstype=ext4 init=/linuxrc loglevel=8 maxcpus=1 nr_cpus=1 reset_devices irqpoll nokaslr KDUMP_KERNEL=1
+
+3. 拷贝vmcore
+第二套系统启动后: cp_vmcore.sh
+
+4. crash调试文件
+生成的文件: vmcore_share/vmcore
+crash vmcore /work/explore/out_a_k510/vmlinux
+输出信息如下:
+crash> bt
+PID: 64       TASK: ffff0000050636c0  CPU: 1    COMMAND: "sh"
+ #0 [ffff80000a4cba60] machine_kexec at ffff800008038524
+ #1 [ffff80000a4cbc10] __crash_kexec at ffff800008162744
+ #2 [ffff80000a4cbc90] panic at ffff800008f3cba8
+ #3 [ffff80000a4cbd20] sysrq_handle_crash at ffff8000087e4668
+ #4 [ffff80000a4cbd30] __handle_sysrq at ffff8000087e4ddc
+ #5 [ffff80000a4cbd80] write_sysrq_trigger at ffff8000087e5420
+ #6 [ffff80000a4cbda0] proc_reg_write at ffff800008340534
+ #7 [ffff80000a4cbdc0] vfs_write at ffff8000082ae240
+ #8 [ffff80000a4cbe10] ksys_write at ffff8000082ae598
+ #9 [ffff80000a4cbe40] __arm64_sys_write at ffff8000082ae648
+#10 [ffff80000a4cbe50] el0_svc_common.constprop.0 at ffff80000802acd0
+#11 [ffff80000a4cbe80] do_el0_svc at ffff80000802ae38
+#12 [ffff80000a4cbe90] el0_svc at ffff800008f4ff50
+#13 [ffff80000a4cbea0] el0_sync_handler at ffff800008f503c0
+#14 [ffff80000a4cbfe0] el0_sync at ffff8000080127dc
+     PC: 00000000004019d8   LR: 00000000004b1c6c   SP: 0000ffffed9ac120
+    X29: 0000ffffed9acb40  X28: 0000000000000002  X27: 0000000000000000
+    X26: 0000000000000000  X25: 000000002f2049d0  X24: 0000000000000020
+    X23: 000000002f205e70  X22: 0000000000000002  X21: 000000002f205e70
+    X20: 0000000000000001  X19: 00000000005dc000  X18: 0000000000000001
+    X17: 0000000000000000  X16: 0000000000000000  X15: 0000000000000008
+    X14: 0000000000000012  X13: 726567676972742d  X12: 0101010101010101
+    X11: 0000000000000007  X10: 0101010101010101   X9: fffffffffffffff0
+     X8: 0000000000000040   X7: 000000000000001a   X6: 0080000080808080
+     X5: 0000000000000000   X4: 000000002f200063   X3: 000000002f205e71
+     X2: 0000000000000002   X1: 000000002f205e70   X0: 0000000000000001
+    ORIG_X0: 0000000000000001  SYSCALLNO: 40  PSTATE: 80000000
+
+
