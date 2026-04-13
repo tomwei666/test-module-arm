@@ -9,18 +9,16 @@
 # published by the Free Software Foundation.
 
 RAM_SIZE=1024
-CMDLINE="earlycon root=/dev/vda rw rootfstype=ext4 console=ttyAMA0 init=/linuxrc loglevel=8"
+CMDLINE="earlycon root=/dev/vda rw rootfstype=ext4 console=ttyAMA0 init=/linuxrc loglevel=8 panic=0 nokaslr crashkernel=256M"
 
 #QEMUT=/work/github/qemu/build/qemu-system-aarch64
-ROOT_1=/work/explore/126
 #KERNEL_IMG=/work/explore/out_k414/arch/arm64/boot/Image
 KERNEL_IMG=/work/explore/out_a_k510/arch/arm64/boot/Image
 
 # 1-->1804 2-->2204
 UBUNTU_VER=2
 
-ROOTFS_FILE=${ROOT_1}/test-module-arm
-
+WORKDIR="$(cd "$(dirname "$0")" && pwd)"
 do_running()
 {
 	SUPPORT_DEBUG=N
@@ -40,11 +38,15 @@ do_running()
 	-m ${RAM_SIZE}M \
 	-cpu cortex-a53 \
 	-smp 2 \
+	-object rng-random,filename=/dev/urandom,id=rng0 \
+	-device virtio-rng-device,rng=rng0 \
 	-device virtio-blk-device,drive=hd1 \
-	-drive if=none,file=${ROOTFS_FILE}/Freeze.img,format=raw,id=hd1 \
+	-drive if=none,file=${WORKDIR}/Freeze.img,format=raw,id=hd1 \
 	-device virtio-blk-device,drive=hd0 \
 	-kernel ${KERNEL_IMG} \
-	-drive if=none,file=${ROOTFS_FILE}/BiscuitOS.img,format=raw,id=hd0 \
+	-drive if=none,file=${WORKDIR}/BiscuitOS.img,format=raw,id=hd0 \
+	-fsdev local,id=fsdev0,path=${WORKDIR}/vmcore_share,security_model=none \
+	-device virtio-9p-device,fsdev=fsdev0,mount_tag=hostshare \
 	-nographic \
 	-append "${CMDLINE}"
 }
